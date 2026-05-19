@@ -2,7 +2,9 @@ resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = var.eksnode-group-name
   node_role_arn   = aws_iam_role.NodeGroupRole.arn
-  subnet_ids      = [data.aws_subnet.subnet.id, aws_subnet.public-subnet2.id]
+  subnet_ids = [
+    aws_subnet.public-subnet2.id
+  ]
 
 
   scaling_config {
@@ -11,7 +13,7 @@ resource "aws_eks_node_group" "eks-node-group" {
     min_size     = 1
   }
 
-  instance_types = ["t3a.medium"]
+  instance_types = ["t3.small"]
   disk_size      = 20
 
   depends_on = [
